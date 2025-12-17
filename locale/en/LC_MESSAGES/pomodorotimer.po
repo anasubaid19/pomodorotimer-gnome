@@ -1,0 +1,174 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pomodorotimer@anasubaid.dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-16 00:00+0000\n"
+"PO-Revision-Date: 2025-12-16 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "%d h"
+msgstr "%d h"
+
+msgid "%d h %d min"
+msgstr "%d h %d min"
+
+msgid "%d min"
+msgstr "%d min"
+
+msgid "Analytics"
+msgstr "Analytics"
+
+msgid "Auto-start next session"
+msgstr "Auto-start next session"
+
+msgid "Break"
+msgstr "Break"
+
+msgid "Break: %d • %s"
+msgstr "Break: %d • %s"
+
+msgid "Browse"
+msgstr "Browse"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Compile schemas"
+msgstr "Compile schemas"
+
+msgid "Complete some sessions to see analytics."
+msgstr "Complete some sessions to see analytics."
+
+msgid "Custom sound file"
+msgstr "Custom sound file"
+
+msgid "Cycle %d • Focus %d/%d"
+msgstr "Cycle %d • Focus %d/%d"
+
+msgid "Day"
+msgstr "Day"
+
+msgid "Focus"
+msgstr "Focus"
+
+msgid "Focus Duration (minutes)"
+msgstr "Focus Duration (minutes)"
+
+msgid "Focus Session History"
+msgstr "Focus Session History"
+
+msgid "Focus: %d • %s"
+msgstr "Focus: %d • %s"
+
+msgid "Fomo-Doro Timer"
+msgstr "Fomo-Doro Timer"
+
+msgid "GSettings schema missing"
+msgstr "GSettings schema missing"
+
+msgid "Leave empty to use the default chime"
+msgstr "Leave empty to use the default chime"
+
+msgid "Long Break Duration (minutes)"
+msgstr "Long Break Duration (minutes)"
+
+msgid "Long Break Interval (sessions)"
+msgstr "Long Break Interval (sessions)"
+
+msgid "Long break"
+msgstr "Long break"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Next: %s (%d min)"
+msgstr "Next: %s (%d min)"
+
+msgid "No data available. Complete some focus sessions to see your history."
+msgstr "No data available. Complete some focus sessions to see your history."
+
+msgid "No data yet"
+msgstr "No data yet"
+
+msgid "No focus sessions this week"
+msgstr "No focus sessions this week"
+
+msgid "No sessions today"
+msgstr "No sessions today"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Pause"
+msgstr "Pause"
+
+msgid "Play"
+msgstr "Play"
+
+msgid "Play sound on finish"
+msgstr "Play sound on finish"
+
+msgid "Progress %d%%"
+msgstr "Progress %d%%"
+
+msgid "Refresh"
+msgstr "Refresh"
+
+msgid "Run: glib-compile-schemas schemas/ (from the extension directory)"
+msgstr "Run: glib-compile-schemas schemas/ (from the extension directory)"
+
+msgid "Select"
+msgstr "Select"
+
+msgid "Select sound file"
+msgstr "Select sound file"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Setup Required"
+msgstr "Setup Required"
+
+msgid "Short Break Duration (minutes)"
+msgstr "Short Break Duration (minutes)"
+
+msgid "Short break"
+msgstr "Short break"
+
+msgid "Show combined focus+break progress for the current cycle"
+msgstr "Show combined focus+break progress for the current cycle"
+
+msgid "Single progress ring"
+msgstr "Single progress ring"
+
+msgid "Start the next focus/break automatically when the current one ends"
+msgstr "Start the next focus/break automatically when the current one ends"
+
+msgid "Start a focus session to see statistics."
+msgstr "Start a focus session to see statistics."
+
+msgid "Time for a break!"
+msgstr "Time for a break!"
+
+msgid "Time to focus!"
+msgstr "Time to focus!"
+
+msgid "Timer Settings"
+msgstr "Timer Settings"
+
+msgid "Updated %s"
+msgstr "Updated %s"
+
+msgid "View analytics"
+msgstr "View analytics"
+
+msgid "Week"
+msgstr "Week"

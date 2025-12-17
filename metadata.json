@@ -1,0 +1,11 @@
+{
+  "uuid": "pomodorotimer@anasubaid.dev",
+  "name": "Fomo-Doro Timer",
+  "description": "A Pomodoro timer with analytics to help you focus.",
+  "version": 1,
+  "shell-version": ["45", "46"],
+  "settings-schema": "org.gnome.shell.extensions.pomodorotimer",
+  "gettext-domain": "pomodorotimer@anasubaid.dev",
+  "url": "https://github.com/anasubaid19/pomodorotimer-gnome"
+}
+

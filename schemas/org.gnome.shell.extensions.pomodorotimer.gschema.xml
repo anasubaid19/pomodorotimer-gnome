@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.pomodorotimer" path="/org/gnome/shell/extensions/pomodorotimer/">
+    <key name="focus-duration" type="i">
+      <default>25</default>
+      <range min="1" max="120"/>
+      <summary>Focus duration</summary>
+      <description>The duration of the focus period in minutes.</description>
+    </key>
+    <key name="short-break-duration" type="i">
+      <default>5</default>
+      <range min="1" max="60"/>
+      <summary>Short break duration</summary>
+      <description>The duration of the short break in minutes.</description>
+    </key>
+    <key name="long-break-duration" type="i">
+      <default>15</default>
+      <range min="1" max="120"/>
+      <summary>Long break duration</summary>
+      <description>The duration of the long break in minutes.</description>
+    </key>
+    <key name="long-break-interval" type="i">
+      <default>4</default>
+      <range min="1" max="10"/>
+      <summary>Long break interval</summary>
+      <description>The number of focus sessions before a long break.</description>
+    </key>
+    <key name="sound-enabled" type="b">
+      <default>true</default>
+      <summary>Play sound on session end</summary>
+      <description>Whether to play a sound when a focus or break session finishes.</description>
+    </key>
+    <key name="sound-file" type="s">
+      <default>''</default>
+      <summary>Custom sound file</summary>
+      <description>Absolute path to a custom sound file to play on session completion, or an empty string to use the bundled/default sound.</description>
+    </key>
+    <key name="autostart-next-session" type="b">
+      <default>false</default>
+      <summary>Automatically start the next session</summary>
+      <description>When enabled, the next focus or break session starts automatically after the current one finishes.</description>
+    </key>
+    <key name="single-progress-bar" type="b">
+      <default>false</default>
+      <summary>Show a combined cycle progress bar</summary>
+      <description>When enabled, the progress ring shows the combined focus+break cycle instead of just the current session.</description>
+    </key>
+
+    <key name="last-active-date" type="s">
+      <default>''</default>
+      <summary>Last active date</summary>
+      <description>The last calendar date (local time) the extension was active, in YYYY-MM-DD format.</description>
+    </key>
+
+	    <!--
+	      Analytics/session state keys are intentionally simple to keep the schema conservative
+	      and robust for persistence across reboots.
+	    -->
+
+	    <key name="today-stats" type="s">
+	      <default>'{"focusCount":0,"breakCount":0,"focusMinutes":0,"breakMinutes":0}'</default>
+	      <summary>Today statistics</summary>
+	      <description>Cache derived from history-json for the current local calendar day.</description>
+	    </key>
+
+	    <key name="history-json" type="s">
+	      <default>'[]'</default>
+	      <summary>Session history</summary>
+	      <description>Authoritative JSON array of completed focus/break sessions.</description>
+	    </key>
+
+    <key name="current-cycle-index" type="i">
+      <default>0</default>
+      <range min="0" max="1000"/>
+      <summary>Current cycle index</summary>
+      <description>Number of focus sessions completed for the current day.</description>
+    </key>
+
+    <key name="current-session-type" type="i">
+      <default>0</default>
+      <range min="0" max="2"/>
+      <summary>Current session type</summary>
+      <description>Current session type (0=focus, 1=short break, 2=long break) for the current day.</description>
+    </key>
+  </schema>
+</schemalist>
