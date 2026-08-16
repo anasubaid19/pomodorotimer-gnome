@@ -1,0 +1,26 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip extension
+        run: |
+          zip -r pomodorotimer@anasubaid.dev.shell-extension.zip . \
+            -x "./.git/*" "./.github/*" "./.gitignore" \
+            -x "./test-logic.js" "./schemas/gschemas.compiled" \
+            -x "*/.DS_Store"
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pomodorotimer@anasubaid.dev.shell-extension.zip
