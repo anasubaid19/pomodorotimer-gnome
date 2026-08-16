@@ -18,7 +18,7 @@ jobs:
           zip -r pomodorotimer@anasubaid.dev.shell-extension.zip . \
             -x "./.git/*" "./.github/*" "./.gitignore" \
             -x "./test-logic.js" "./schemas/gschemas.compiled" \
-            -x "*/.DS_Store"
+            -x "*.po" "*/.DS_Store"
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2

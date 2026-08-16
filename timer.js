@@ -12,10 +12,10 @@ const LONG_BREAK = SESSION_TYPE.LONG_BREAK;
  * Wall-clock based tick (100 ms) so the countdown stays accurate.
  */
 export class TimerEngine {
-    constructor(store, callbacks = {}) {
+    constructor(store, callbacks) {
         this.store = store;
-        this.onChange = callbacks.onChange ?? (() => {});
-        this.onCompleted = callbacks.onCompleted ?? (() => {});
+        this.onChange = callbacks.onChange;
+        this.onCompleted = callbacks.onCompleted;
 
         this._kind = null;
         this._paused = false;
@@ -51,7 +51,7 @@ export class TimerEngine {
         return Math.max(0, Math.ceil(this._remainingMs / 1000));
     }
 
-    get totalMs() { return this.durationMs(this._kind ?? FOCUS); }
+    get totalMs() { return this.durationMs(this._kind); }
 
     get progress() {
         const total = this.totalMs;
@@ -193,7 +193,7 @@ export class TimerEngine {
         const session = {
             kind,
             durationSeconds,
-            taskTitle: this.activeTask?.title ?? null,
+            taskTitle: this.activeTask ? this.activeTask.title : null,
         };
         this.store.addSession(kind, durationSeconds, session.taskTitle);
 
@@ -254,9 +254,9 @@ export class TimerEngine {
         const state = this.store.loadTimerState();
         if (state.kind && state.remaining > 0) {
             this._kind = state.kind;
-            this._paused = Boolean(state.paused);
-            this._remainingMs = Number(state.remaining);
-            this._cycleCount = Number(state.cycleCount) || 0;
+            this._paused = state.paused;
+            this._remainingMs = state.remaining;
+            this._cycleCount = state.cycleCount;
             if (!this._paused)
                 this._endMs = Date.now() + this._remainingMs;
         } else {

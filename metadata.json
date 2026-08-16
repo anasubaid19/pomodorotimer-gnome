@@ -2,8 +2,8 @@
   "uuid": "pomodorotimer@anasubaid.dev",
   "name": "FomoDoro",
   "description": "Pomodoro timer with tasks, notes, and focus analytics.",
-  "version": 2,
-  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "version": 3,
+  "shell-version": ["46", "47", "48", "49", "50"],
   "settings-schema": "org.gnome.shell.extensions.pomodorotimer",
   "gettext-domain": "pomodorotimer@anasubaid.dev",
   "url": "https://github.com/anasubaid19/pomodorotimer-gnome"

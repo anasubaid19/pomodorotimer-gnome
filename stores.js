@@ -15,128 +15,29 @@ export const KIND_LABEL = {
     [SESSION_TYPE.LONG_BREAK]: 'Long Break',
 };
 
-const safeJsonParse = (value, fallback, context = 'JSON') => {
-    if (typeof value !== 'string' || !value.trim())
-        return fallback;
-    try {
-        const parsed = JSON.parse(value);
-        return parsed ?? fallback;
-    } catch (e) {
-        logError(e, `[FomoDoro] Failed to parse ${context}`);
-        return fallback;
-    }
-};
-
-const safeJsonStringify = (value, fallback, context = 'JSON') => {
-    try {
-        return JSON.stringify(value);
-    } catch (e) {
-        logError(e, `[FomoDoro] Failed to serialize ${context}`);
-        return fallback;
-    }
-};
-
-class SafeSettings {
-    constructor(settings) {
-        this._settings = settings ?? null;
-        this._schema = this._settings?.settings_schema ?? null;
-    }
-
-    _hasKey(key) {
-        try {
-            return this._schema?.has_key ? this._schema.has_key(key) : false;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    get_int(key, fallback = 0) {
-        if (!this._settings || !this._hasKey(key))
-            return fallback;
-        try {
-            const v = this._settings.get_int(key);
-            return Number.isFinite(Number(v)) ? Math.trunc(Number(v)) : fallback;
-        } catch (e) {
-            return fallback;
-        }
-    }
-
-    get_boolean(key, fallback = false) {
-        if (!this._settings || !this._hasKey(key))
-            return fallback;
-        try {
-            return Boolean(this._settings.get_boolean(key));
-        } catch (e) {
-            return fallback;
-        }
-    }
-
-    get_string(key, fallback = '') {
-        if (!this._settings || !this._hasKey(key))
-            return fallback;
-        try {
-            return typeof this._settings.get_string(key) === 'string'
-                ? this._settings.get_string(key)
-                : fallback;
-        } catch (e) {
-            return fallback;
-        }
-    }
-
-    set_int(key, value) {
-        if (!this._settings || !this._hasKey(key))
-            return false;
-        try {
-            return this._settings.set_int(key, Math.trunc(Number(value)));
-        } catch (e) {
-            return false;
-        }
-    }
-
-    set_boolean(key, value) {
-        if (!this._settings || !this._hasKey(key))
-            return false;
-        try {
-            return this._settings.set_boolean(key, Boolean(value));
-        } catch (e) {
-            return false;
-        }
-    }
-
-    set_string(key, value) {
-        if (!this._settings || !this._hasKey(key))
-            return false;
-        try {
-            return this._settings.set_string(key, String(value ?? ''));
-        } catch (e) {
-            return false;
-        }
-    }
-}
-
 /**
  * All app data + settings, backed by GSettings JSON strings.
  * Pure Gio — no Shell dependencies.
  */
 export class DataStore {
     constructor(settings) {
-        this.settings = new SafeSettings(settings);
+        this.settings = settings;
     }
 
     // --- settings accessors ---
-    get focusDuration() { return this.settings.get_int('focus-duration', 25); }
-    get shortBreakDuration() { return this.settings.get_int('short-break-duration', 5); }
-    get longBreakDuration() { return this.settings.get_int('long-break-duration', 15); }
-    get longBreakInterval() { return this.settings.get_int('long-break-interval', 4); }
-    get autostartNext() { return this.settings.get_boolean('autostart-next-session', false); }
-    get showCountdown() { return this.settings.get_boolean('show-countdown', true); }
-    get autoOpenOnCompletion() { return this.settings.get_boolean('auto-open-on-completion', true); }
-    get singleProgressBar() { return this.settings.get_boolean('single-progress-bar', false); }
-    get dailyGoal() { return this.settings.get_int('daily-goal', 8); }
+    get focusDuration() { return this.settings.get_int('focus-duration'); }
+    get shortBreakDuration() { return this.settings.get_int('short-break-duration'); }
+    get longBreakDuration() { return this.settings.get_int('long-break-duration'); }
+    get longBreakInterval() { return this.settings.get_int('long-break-interval'); }
+    get autostartNext() { return this.settings.get_boolean('autostart-next-session'); }
+    get showCountdown() { return this.settings.get_boolean('show-countdown'); }
+    get autoOpenOnCompletion() { return this.settings.get_boolean('auto-open-on-completion'); }
+    get singleProgressBar() { return this.settings.get_boolean('single-progress-bar'); }
+    get dailyGoal() { return this.settings.get_int('daily-goal'); }
     set dailyGoal(v) { this.settings.set_int('daily-goal', v); }
-    get soundChoice() { return this.settings.get_string('sound-choice', 'bundled'); }
+    get soundChoice() { return this.settings.get_string('sound-choice'); }
     set soundChoice(v) { this.settings.set_string('sound-choice', v); }
-    get preset() { return this.settings.get_string('preset', 'custom'); }
+    get preset() { return this.settings.get_string('preset'); }
 
     setDuration(kind, minutes) {
         const key = kind === SESSION_TYPE.FOCUS ? 'focus-duration'
@@ -154,8 +55,6 @@ export class DataStore {
             sprint: {focus: 15, short: 3},
         };
         const p = presets[preset];
-        if (!p)
-            return;
         this.settings.set_int('focus-duration', p.focus);
         this.settings.set_int('short-break-duration', p.short);
         this.settings.set_int('long-break-duration', 15);
@@ -178,11 +77,16 @@ export class DataStore {
 
     // --- generic JSON key helpers ---
     _loadJSON(key, fallback) {
-        return safeJsonParse(this.settings.get_string(key), fallback, key);
+        // GSettings keys are plain JSON strings; corrupted data must not crash the extension.
+        try {
+            return JSON.parse(this.settings.get_string(key));
+        } catch (e) {
+            return fallback;
+        }
     }
 
     _saveJSON(key, value) {
-        this.settings.set_string(key, safeJsonStringify(value, '', key));
+        this.settings.set_string(key, JSON.stringify(value));
     }
 
     // --- tasks ---
@@ -195,7 +99,7 @@ export class DataStore {
         const task = {
             id: GLib.uuid_string_random(),
             title,
-            estimate: Math.max(1, Math.min(20, estimate || 1)),
+            estimate,
             completed: 0,
             done: false,
             createdAt: new Date().toISOString(),
@@ -231,7 +135,7 @@ export class DataStore {
             kind,
             start: new Date().toISOString(),
             durationSeconds,
-            taskTitle: taskTitle || null,
+            taskTitle,
         });
         this._saveJSON('history-json', sessions);
         this.settings.set_string('last-active-date', this._dayKey(new Date()));

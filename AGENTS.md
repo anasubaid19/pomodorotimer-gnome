@@ -10,7 +10,7 @@ feature parity. Keep features aligned with the macOS app.
 - `popup.js` — the popover actor (header + Tasks/Notes/Stats/Settings tabs)
 - `timer.js` — TimerEngine: pure state machine + persistence (no Shell deps)
 - `stores.js` — DataStore: tasks/notes/history/stats via GSettings JSON
-- `sounds.js` — SoundPlayer: paplay subprocess + Main.soundPlayer fallback
+- `sounds.js` — SoundPlayer: paplay subprocess with canberra-gtk-play fallback (no Shell deps)
 - `prefs.js` — minimal Adw preferences window (full settings live in the popup)
 - `schemas/*.gschema.xml` — settings keys (JSON strings for tasks/notes/history/timer-state)
 - `sounds/nokia_message.mp3`, `stylesheet.css`, `metadata.json`
@@ -46,4 +46,6 @@ feature parity. Keep features aligned with the macOS app.
   restart shell (Alt+F2 → `r`), watch `journalctl -f -o cat /usr/bin/gnome-shell`.
 - Install for dev: symlink repo → `~/.local/share/gnome-shell/extensions/pomodorotimer@anasubaid.dev`
 - Git: small commits, tag `vX.Y.Z` per milestone, push. (macOS repo tags run v1.0.0–v1.6.0; this repo continues its own numbering from v1.0.0.)
+- When tagging a release, bump `APP_VERSION` in `extension.js` and `version` in `metadata.json` (EGO submission number).
+- EGO packages: no `.po` files, no `gschemas.compiled`, no `test-logic.js` in the zip.
 - The macOS repo is the source of truth for behavior. Port, don't redesign.

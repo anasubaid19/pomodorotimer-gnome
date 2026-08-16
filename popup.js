@@ -37,6 +37,7 @@ export class FomoDoroPopup extends St.BoxLayout {
         this._tab = 'tasks';
         this._adding = false;
         this._noteSaveId = 0;
+        this._statValues = {};
         this.set_width_request(360);
 
         this._buildHeader();
@@ -157,7 +158,7 @@ export class FomoDoroPopup extends St.BoxLayout {
         cr.arc(cx, cy, radius, 0, 2 * Math.PI);
         cr.stroke();
 
-        if (this._engine.kind !== null || this._engine.phase === 'running' || this._engine.phase === 'paused') {
+        if (this._engine.kind !== null) {
             cr.setSourceRGBA(accent.r, accent.g, accent.b, 0.95);
             cr.arc(cx, cy, radius, -Math.PI / 2, -Math.PI / 2 + this._engine.progress * 2 * Math.PI);
             cr.stroke();
@@ -184,7 +185,7 @@ export class FomoDoroPopup extends St.BoxLayout {
         const kind = this._engine.kind;
         const phaseText = this._engine.phase === 'idle'
             ? (this._engine.justCompleted ? _('Focus complete 🎉') : _('Focus'))
-            : (KIND_LABEL[kind] ?? _('Focus'));
+            : KIND_LABEL[kind];
         this._phaseLabel.set_text(phaseText);
 
         const dots = this._engine.cycleDots;
@@ -319,7 +320,7 @@ export class FomoDoroPopup extends St.BoxLayout {
     }
 
     _adjustEstimate(delta) {
-        this._estimate = Math.min(20, Math.max(1, (this._estimate ?? 1) + delta));
+        this._estimate = Math.min(20, Math.max(1, this._estimate + delta));
         this._estimateLabel.set_text(`Sessions: ${this._estimate}`);
     }
 
@@ -333,11 +334,9 @@ export class FomoDoroPopup extends St.BoxLayout {
     }
 
     _refreshTasks() {
-        if (!this._taskList)
-            return;
         this._taskList.destroy_all_children();
         const tasks = this._store.getTasks();
-        const activeTaskId = this._engine.activeTask?.id ?? null;
+        const activeTaskId = this._engine.activeTask ? this._engine.activeTask.id : null;
 
         for (const task of tasks) {
             const row = new St.BoxLayout({vertical: false, style_class: 'fomodoro-task-row', reactive: true});
@@ -426,7 +425,7 @@ export class FomoDoroPopup extends St.BoxLayout {
             GLib.source_remove(this._noteSaveId);
         this._noteSaveId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 400, () => {
             this._noteSaveId = 0;
-            this._store.setNotes(this._noteText.get_text() ?? '');
+            this._store.setNotes(this._noteText.get_text());
             this._noteStatus.set_text(_('Autosaved'));
             return GLib.SOURCE_REMOVE;
         });
@@ -482,7 +481,6 @@ export class FomoDoroPopup extends St.BoxLayout {
 
     _statRow(defs) {
         const row = new St.BoxLayout({vertical: false});
-        this._statValues = this._statValues ?? {};
         for (const def of defs) {
             const box = new St.BoxLayout({vertical: true, style_class: 'fomodoro-stat-box', x_expand: true});
             const value = new St.Label({text: '0', style_class: 'fomodoro-stat-value'});
@@ -550,8 +548,6 @@ export class FomoDoroPopup extends St.BoxLayout {
     }
 
     _refreshStats() {
-        if (!this._statValues)
-            return;
         const stats = this._store.statsToday();
         const fmtMin = (m) => m >= 60 ? `${Math.floor(m / 60)}h ${m % 60}m` : `${m}m`;
         const last7 = this._store.last7Days();
@@ -584,16 +580,14 @@ export class FomoDoroPopup extends St.BoxLayout {
             for (const session of today.slice(0, 20)) {
                 const row = new St.BoxLayout({vertical: false, style_class: 'fomodoro-history-row'});
                 const kindLabel = session.kind === FOCUS ? '●' : '○';
-                const kindColor = session.kind === FOCUS ? _('Focus') : _('Break');
                 const time = new St.Label({text: `${fmt(session.start)}  ${kindLabel}`, style_class: 'fomodoro-caption'});
-                const title = new St.Label({text: session.taskTitle ?? '—', style_class: 'fomodoro-caption', x_expand: true});
+                const title = new St.Label({text: session.taskTitle ? session.taskTitle : '—', style_class: 'fomodoro-caption', x_expand: true});
                 title.clutter_text.set_ellipsize(3);
                 const dur = new St.Label({text: `${Math.round(session.durationSeconds / 60)} min`, style_class: 'fomodoro-caption'});
                 row.add_child(time);
                 row.add_child(title);
                 row.add_child(dur);
                 this._historyBox.add_child(row);
-                void kindColor;
             }
         }
     }
@@ -743,15 +737,12 @@ export class FomoDoroPopup extends St.BoxLayout {
     }
 
     _refreshSettingsState() {
-        if (!this._durationRows || !this._toggles)
-            return;
         this._durationRows.focus.label.set_text(`${this._store.focusDuration} min`);
         this._durationRows.shortBreak.label.set_text(`${this._store.shortBreakDuration} min`);
         this._durationRows.longBreak.label.set_text(`${this._store.longBreakDuration} min`);
         this._durationRows.interval.label.set_text(`${this._store.longBreakInterval}`);
 
-        if (this._goalValueLabel)
-            this._goalValueLabel.set_text(`${this._store.dailyGoal} sessions`);
+        this._goalValueLabel.set_text(`${this._store.dailyGoal} sessions`);
 
         const currentPreset = this._store.currentPreset();
         const presetChildren = this._presetBox.get_children();
@@ -771,9 +762,7 @@ export class FomoDoroPopup extends St.BoxLayout {
     }
 
     setAbout(versionText, updateText) {
-        if (this._aboutLabel)
-            this._aboutLabel.set_text(versionText);
-        if (this._updateResult)
-            this._updateResult.set_text(updateText ?? '');
+        this._aboutLabel.set_text(versionText);
+        this._updateResult.set_text(updateText);
     }
 }
