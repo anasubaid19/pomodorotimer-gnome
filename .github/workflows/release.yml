@@ -13,11 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Compile schemas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libglib2.0-bin
+          glib-compile-schemas schemas/
+
       - name: Zip extension
         run: |
           zip -r pomodorotimer@anasubaid.dev.shell-extension.zip . \
             -x "./.git/*" "./.github/*" "./.gitignore" \
-            -x "./test-logic.js" "./schemas/gschemas.compiled" \
+            -x "./test-logic.js" \
             -x "*.po" "*/.DS_Store"
 
       - name: Upload to release

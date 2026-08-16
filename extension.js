@@ -16,7 +16,7 @@ import {TimerEngine} from './timer.js';
 import {SoundPlayer} from './sounds.js';
 import {FomoDoroPopup} from './popup.js';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 const LATEST_RELEASE_URL = 'https://api.github.com/repos/anasubaid19/pomodorotimer-gnome/releases/latest';
 
 // 'v1.0.0' → 1000000, so tags can be compared numerically.

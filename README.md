@@ -1,7 +1,7 @@
 # FomoDoro (GNOME Shell Extension)
 
 Pomodoro timer with **tasks, notes, and analytics** — a port of the macOS app
-[FomoDoro](https://github.com/anasubaid19/fomo-doro). GNOME Shell 45+.
+[FomoDoro](https://github.com/anasubaid19/fomo-doro).
 
 ## Features
 
@@ -13,21 +13,61 @@ Pomodoro timer with **tasks, notes, and analytics** — a port of the macOS app
 - Analytics: today, daily goal, streak, all-time, last-7-days chart, session history
 - Presets (Classic 25/5, Deep Work 50/10, Sprint 15/3, Custom), sound picker
 - Popup auto-opens when a session completes (optional)
-- Update check against GitHub releases
+- Update check against GitHub Releases
 
-## Install
+## Requirements
 
-1. Download the `.zip` from Releases, or copy the extension folder to:
-   `~/.local/share/gnome-shell/extensions/pomodorotimer@anasubaid.dev/`
-2. Compile schemas:
+- GNOME Shell **46 or newer** (X11 or Wayland)
+- `paplay` (PipeWire-Pulse / PulseAudio) or `canberra-gtk-play` for completion sounds
+
+## Install (zip)
+
+1. Download the latest `pomodorotimer@anasubaid.dev.shell-extension.zip` from
+   [Releases](../../releases).
+2. Install it:
    ```sh
-   glib-compile-schemas schemas/
+   gnome-extensions install pomodorotimer@anasubaid.dev.shell-extension.zip
    ```
-3. Restart the shell (`Alt+F2` → `r`) and enable:
+3. Restart GNOME Shell (X11: `Alt+F2` → `r`; Wayland: log out and back in).
+4. Enable the extension:
    ```sh
    gnome-extensions enable pomodorotimer@anasubaid.dev
    ```
-   (Or use **Extension Manager** / **GNOME Extensions** app.)
+   Or use **Extension Manager** / **GNOME Extensions** app.
+
+The zip ships with compiled schemas — no extra steps needed.
+
+## Install from source
+
+For testing or development:
+
+```sh
+git clone https://github.com/anasubaid19/pomodorotimer-gnome.git
+ln -s "$(pwd)/pomodorotimer-gnome" ~/.local/share/gnome-shell/extensions/pomodorotimer@anasubaid.dev
+glib-compile-schemas pomodorotimer-gnome/schemas/
+gnome-extensions enable pomodorotimer@anasubaid.dev
+```
+
+Restart the shell as above. Re-run `glib-compile-schemas` after editing anything
+in `schemas/`.
+
+## Update
+
+Check for updates in the popup's **Settings** tab (it reads GitHub Releases).
+To install a new version:
+
+```sh
+gnome-extensions install --force pomodorotimer@anasubaid.dev.shell-extension.zip
+```
+
+then restart the shell.
+
+## Uninstall
+
+```sh
+gnome-extensions disable pomodorotimer@anasubaid.dev
+gnome-extensions uninstall pomodorotimer@anasubaid.dev
+```
 
 ## Development
 

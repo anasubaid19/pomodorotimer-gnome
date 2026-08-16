@@ -47,5 +47,5 @@ feature parity. Keep features aligned with the macOS app.
 - Install for dev: symlink repo → `~/.local/share/gnome-shell/extensions/pomodorotimer@anasubaid.dev`
 - Git: small commits, tag `vX.Y.Z` per milestone, push. (macOS repo tags run v1.0.0–v1.6.0; this repo continues its own numbering from v1.0.0.)
 - When tagging a release, bump `APP_VERSION` in `extension.js` and `version` in `metadata.json` (EGO submission number).
-- EGO packages: no `.po` files, no `gschemas.compiled`, no `test-logic.js` in the zip.
+- Release zips: no `.po` files, no `test-logic.js`; `schemas/gschemas.compiled` IS included (CI compiles it before zipping — needed by `gnome-extensions install`).
 - The macOS repo is the source of truth for behavior. Port, don't redesign.
