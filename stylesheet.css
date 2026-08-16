@@ -213,3 +213,230 @@
     text-align: center;
     margin-top: 2px;
 }
+
+/* ===== FomoDoro popup (parity) ===== */
+
+.fomodoro-panel-label {
+    font-size: 11pt;
+    font-weight: 600;
+    margin: 0 6px;
+}
+
+.fomodoro-popup {
+    padding: 12px;
+    spacing: 10px;
+    width: 360px;
+}
+
+.fomodoro-header {
+    spacing: 8px;
+}
+
+.fomodoro-time {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+    font-feature-settings: "tnum";
+}
+
+.fomodoro-phase {
+    font-size: 11pt;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fomodoro-dots {
+    font-size: 10pt;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fomodoro-active-task {
+    font-size: 10.5pt;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.fomodoro-controls {
+    spacing: 16px;
+}
+
+.fomodoro-icon-button {
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.fomodoro-text-button {
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-weight: 600;
+}
+
+.fomodoro-banner {
+    spacing: 4px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background-color: rgba(227, 83, 83, 0.18);
+    border: 1px solid rgba(227, 83, 83, 0.35);
+}
+
+.fomodoro-banner-title {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.fomodoro-caption {
+    font-size: 10pt;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.fomodoro-tabs {
+    spacing: 4px;
+    padding: 3px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.fomodoro-tab {
+    border-radius: 9px;
+    padding: 6px 8px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fomodoro-tab-active {
+    border-radius: 9px;
+    padding: 6px 8px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.fomodoro-view {
+    spacing: 6px;
+}
+
+.fomodoro-add-button {
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-weight: 600;
+}
+
+.fomodoro-add-form {
+    spacing: 6px;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.fomodoro-entry {
+    padding: 5px 8px;
+    border-radius: 8px;
+}
+
+.fomodoro-task-list {
+    spacing: 4px;
+}
+
+.fomodoro-task-row {
+    padding: 5px 6px;
+    border-radius: 10px;
+    spacing: 8px;
+}
+
+.fomodoro-task-row:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.fomodoro-task-row-active {
+    background-color: rgba(227, 83, 83, 0.16);
+    border: 1px solid rgba(227, 83, 83, 0.35);
+}
+
+.fomodoro-task-title {
+    font-size: 11pt;
+}
+
+.fomodoro-focusing {
+    font-size: 9pt;
+    color: rgba(227, 83, 83, 0.95);
+    font-weight: 600;
+}
+
+.fomodoro-empty {
+    padding: 22px 10px;
+    spacing: 6px;
+    font-size: 10.5pt;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+}
+
+.fomodoro-note-editor {
+    font-size: 11pt;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.fomodoro-scroll {
+    width: 340px;
+}
+
+.fomodoro-stats-body {
+    spacing: 8px;
+    padding: 4px;
+}
+
+.fomodoro-section-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 4px;
+}
+
+.fomodoro-stat-box {
+    padding: 8px 4px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.06);
+    spacing: 2px;
+    text-align: center;
+}
+
+.fomodoro-stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    font-feature-settings: "tnum";
+}
+
+.fomodoro-stat-title {
+    font-size: 8.5pt;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.fomodoro-big-number {
+    font-size: 16px;
+    font-weight: 700;
+    font-feature-settings: "tnum";
+}
+
+.fomodoro-history-row {
+    spacing: 8px;
+    padding: 3px 2px;
+}
+
+.fomodoro-preset {
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-weight: 600;
+    font-size: 9.5pt;
+}
+
+.fomodoro-preset-active {
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-weight: 700;
+    font-size: 9.5pt;
+    background-color: rgba(227, 83, 83, 0.25);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.fomodoro-ring {
+    border-radius: 55px;
+}

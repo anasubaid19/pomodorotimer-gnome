@@ -25,6 +25,36 @@
       <summary>Long break interval</summary>
       <description>The number of focus sessions before a long break.</description>
     </key>
+
+    <!-- Parity settings -->
+    <key name="preset" type="s">
+      <default>'custom'</default>
+      <summary>Timer preset</summary>
+      <description>classic, deep-work, sprint, or custom.</description>
+    </key>
+    <key name="daily-goal" type="i">
+      <default>8</default>
+      <range min="1" max="24"/>
+      <summary>Daily goal</summary>
+      <description>Target number of focus sessions per day.</description>
+    </key>
+    <key name="sound-choice" type="s">
+      <default>'bundled'</default>
+      <summary>Completion sound</summary>
+      <description>none, bundled, freedesktop:NAME, or custom:/absolute/path.</description>
+    </key>
+    <key name="show-countdown" type="b">
+      <default>true</default>
+      <summary>Show countdown in panel</summary>
+      <description>Whether the panel button shows the remaining time.</description>
+    </key>
+    <key name="auto-open-on-completion" type="b">
+      <default>true</default>
+      <summary>Auto-open popup when a session ends</summary>
+      <description>Open the extension popup when a focus session completes.</description>
+    </key>
+
+    <!-- Sound / behavior (kept for compatibility) -->
     <key name="sound-enabled" type="b">
       <default>true</default>
       <summary>Play sound on session end</summary>
@@ -33,54 +63,63 @@
     <key name="sound-file" type="s">
       <default>''</default>
       <summary>Custom sound file</summary>
-      <description>Absolute path to a custom sound file to play on session completion, or an empty string to use the bundled/default sound.</description>
+      <description>Absolute path to a custom sound file, or empty for the bundled default.</description>
     </key>
     <key name="autostart-next-session" type="b">
       <default>false</default>
       <summary>Automatically start the next session</summary>
-      <description>When enabled, the next focus or break session starts automatically after the current one finishes.</description>
+      <description>When enabled, the next session starts automatically after the current one finishes.</description>
     </key>
     <key name="single-progress-bar" type="b">
       <default>false</default>
       <summary>Show a combined cycle progress bar</summary>
-      <description>When enabled, the progress ring shows the combined focus+break cycle instead of just the current session.</description>
+      <description>When enabled, the ring shows the combined focus+break cycle.</description>
     </key>
 
+    <!-- Data (JSON strings) -->
     <key name="last-active-date" type="s">
       <default>''</default>
       <summary>Last active date</summary>
-      <description>The last calendar date (local time) the extension was active, in YYYY-MM-DD format.</description>
+      <description>The last calendar date (local time) the extension was active, YYYY-MM-DD.</description>
+    </key>
+    <key name="today-stats" type="s">
+      <default>'{"focusCount":0,"breakCount":0,"focusMinutes":0,"breakMinutes":0}'</default>
+      <summary>Today statistics</summary>
+      <description>Cache derived from history-json for the current local calendar day.</description>
+    </key>
+    <key name="history-json" type="s">
+      <default>'[]'</default>
+      <summary>Session history</summary>
+      <description>Authoritative JSON array of completed focus/break sessions.</description>
+    </key>
+    <key name="tasks-json" type="s">
+      <default>'[]'</default>
+      <summary>Tasks</summary>
+      <description>JSON array of tasks with title, estimate, completed, done, createdAt.</description>
+    </key>
+    <key name="notes" type="s">
+      <default>''</default>
+      <summary>Quick notes</summary>
+      <description>Autosaved scratchpad text.</description>
+    </key>
+    <key name="timer-state" type="s">
+      <default>'{"kind":null,"paused":false,"remaining":0,"cycleCount":0}'</default>
+      <summary>Timer state</summary>
+      <description>Persisted timer phase, remaining milliseconds, and cycle count.</description>
     </key>
 
-	    <!--
-	      Analytics/session state keys are intentionally simple to keep the schema conservative
-	      and robust for persistence across reboots.
-	    -->
-
-	    <key name="today-stats" type="s">
-	      <default>'{"focusCount":0,"breakCount":0,"focusMinutes":0,"breakMinutes":0}'</default>
-	      <summary>Today statistics</summary>
-	      <description>Cache derived from history-json for the current local calendar day.</description>
-	    </key>
-
-	    <key name="history-json" type="s">
-	      <default>'[]'</default>
-	      <summary>Session history</summary>
-	      <description>Authoritative JSON array of completed focus/break sessions.</description>
-	    </key>
-
+    <!-- Legacy timer keys (kept for compatibility) -->
     <key name="current-cycle-index" type="i">
       <default>0</default>
       <range min="0" max="1000"/>
       <summary>Current cycle index</summary>
       <description>Number of focus sessions completed for the current day.</description>
     </key>
-
     <key name="current-session-type" type="i">
       <default>0</default>
       <range min="0" max="2"/>
       <summary>Current session type</summary>
-      <description>Current session type (0=focus, 1=short break, 2=long break) for the current day.</description>
+      <description>Current session type (0=focus, 1=short break, 2=long break).</description>
     </key>
   </schema>
 </schemalist>
