@@ -16,7 +16,7 @@ import {TimerEngine} from './timer.js';
 import {SoundPlayer} from './sounds.js';
 import {FomoDoroPopup} from './popup.js';
 
-const APP_VERSION = '1.0.2';
+const APP_VERSION = '1.0.3';
 const LATEST_RELEASE_URL = 'https://api.github.com/repos/anasubaid19/pomodorotimer-gnome/releases/latest';
 const LATEST_RELEASE_PAGE = 'https://github.com/anasubaid19/pomodorotimer-gnome/releases/latest';
 
