@@ -202,11 +202,14 @@ export class TimerEngine {
             if (this.activeTask) {
                 this.activeTask.completed = (this.activeTask.completed || 0) + 1;
                 if (this.activeTask.estimate > 0 &&
-                    this.activeTask.completed >= this.activeTask.estimate)
+                    this.activeTask.completed >= this.activeTask.estimate) {
                     this.activeTask.done = true;
+                    this.activeTask.completedAt = new Date().toISOString();
+                }
                 this.store.updateTask(this.activeTask.id, {
                     completed: this.activeTask.completed,
                     done: this.activeTask.done,
+                    completedAt: this.activeTask.completedAt || null,
                 });
             }
             if (!manual)

@@ -21,7 +21,7 @@
     </key>
     <key name="long-break-interval" type="i">
       <default>4</default>
-      <range min="1" max="10"/>
+      <range min="1" max="12"/>
       <summary>Long break interval</summary>
       <description>The number of focus sessions before a long break.</description>
     </key>
@@ -52,6 +52,11 @@
       <default>true</default>
       <summary>Auto-open popup when a session ends</summary>
       <description>Open the extension popup when a focus session completes.</description>
+    </key>
+    <key name="last-notified-update" type="s">
+      <default>''</default>
+      <summary>Last notified update</summary>
+      <description>The latest release tag already shown as a desktop notification.</description>
     </key>
 
     <!-- Sound / behavior (kept for compatibility) -->

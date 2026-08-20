@@ -24,7 +24,7 @@ export default class FomoDoroTimerPreferences extends ExtensionPreferences {
         mkSpin(_('Focus'), 'focus-duration', 120);
         mkSpin(_('Short break'), 'short-break-duration', 60);
         mkSpin(_('Long break'), 'long-break-duration', 120);
-        mkSpin(_('Long break every (sessions)'), 'long-break-interval', 10);
+        mkSpin(_('Long break every (sessions)'), 'long-break-interval', 12);
         mkSpin(_('Daily goal (sessions)'), 'daily-goal', 24);
         page.add(durationGroup);
 

@@ -102,6 +102,7 @@ export class DataStore {
             estimate,
             completed: 0,
             done: false,
+            completedAt: null,
             createdAt: new Date().toISOString(),
         };
         tasks.push(task);
@@ -143,7 +144,7 @@ export class DataStore {
 
     // --- notes ---
     getNotes() {
-        return this.settings.get_string('notes', '');
+        return this.settings.get_string('notes');
     }
 
     setNotes(text) {
@@ -180,7 +181,9 @@ export class DataStore {
 
     todaySessions() {
         const today = this._dayKey(new Date());
-        return this.getSessions().filter(s => this._dayKey(new Date(s.start)) === today);
+        return this.getSessions()
+            .filter(s => this._dayKey(new Date(s.start)) === today)
+            .sort((a, b) => new Date(b.start) - new Date(a.start));
     }
 
     focusToday() {
@@ -189,6 +192,7 @@ export class DataStore {
 
     statsToday() {
         const today = this.todaySessions();
+        const todayKey = this._dayKey(new Date());
         const focus = today.filter(s => s.kind === SESSION_TYPE.FOCUS);
         const breaks = today.filter(s => s.kind !== SESSION_TYPE.FOCUS);
         const sum = (arr) => arr.reduce((acc, s) => acc + (s.durationSeconds || 0), 0);
@@ -196,7 +200,8 @@ export class DataStore {
             sessions: focus.length,
             focusMinutes: Math.round(sum(focus) / 60),
             breakMinutes: Math.round(sum(breaks) / 60),
-            tasksDone: this.getTasks().filter(t => t.done).length,
+            tasksDone: this.getTasks().filter(t =>
+                t.done && t.completedAt && this._dayKey(new Date(t.completedAt)) === todayKey).length,
         };
     }
 
@@ -213,10 +218,12 @@ export class DataStore {
         }
         let streak = 0;
         const today = this._startOfDay(new Date());
-        let cursor = days.has(this._dayKey(today)) ? today : new Date(today.getTime() - 86400000);
+        const cursor = new Date(today);
+        if (!days.has(this._dayKey(today)))
+            cursor.setDate(cursor.getDate() - 1);
         while (days.has(this._dayKey(cursor))) {
             streak += 1;
-            cursor = new Date(cursor.getTime() - 86400000);
+            cursor.setDate(cursor.getDate() - 1);
         }
         return streak;
     }
@@ -226,8 +233,10 @@ export class DataStore {
         const dayFormatter = (date) => GLib.DateTime.new_from_unix_local(Math.floor(date.getTime() / 1000))
             .format('%a');
         for (let i = 6; i >= 0; i--) {
-            const dayStart = new Date(this._startOfDay(new Date()).getTime() - i * 86400000);
-            const dayEnd = new Date(dayStart.getTime() + 86400000);
+            const dayStart = this._startOfDay(new Date());
+            dayStart.setDate(dayStart.getDate() - i);
+            const dayEnd = new Date(dayStart);
+            dayEnd.setDate(dayEnd.getDate() + 1);
             let minutes = 0;
             for (const s of this.getSessions()) {
                 if (s.kind !== SESSION_TYPE.FOCUS)

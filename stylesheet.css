@@ -216,6 +216,13 @@
 
 /* ===== FomoDoro popup (parity) ===== */
 
+.popup-menu-item.fomodoro-menu-item {
+    padding: 0;
+    spacing: 0;
+    border: 0;
+    background-color: transparent;
+}
+
 .fomodoro-panel-label {
     font-size: 11pt;
     font-weight: 600;
@@ -223,8 +230,8 @@
 }
 
 .fomodoro-popup {
-    padding: 12px;
-    spacing: 10px;
+    padding: 8px;
+    spacing: 8px;
     width: 360px;
 }
 
@@ -232,8 +239,38 @@
     spacing: 8px;
 }
 
+.fomodoro-expanded-header {
+    spacing: 8px;
+}
+
+.fomodoro-compact-header {
+    spacing: 10px;
+    padding: 6px 2px;
+}
+
+.fomodoro-compact-dot-focus {
+    color: rgb(240, 92, 92);
+    font-size: 13px;
+}
+
+.fomodoro-compact-dot-break {
+    color: rgb(77, 199, 115);
+    font-size: 13px;
+}
+
+.fomodoro-compact-phase {
+    font-size: 10.5pt;
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.fomodoro-compact-time {
+    font-size: 16px;
+    font-weight: 700;
+    font-feature-settings: "tnum";
+}
+
 .fomodoro-time {
-    font-size: 34px;
+    font-size: 28px;
     font-weight: 600;
     letter-spacing: -0.6px;
     font-feature-settings: "tnum";
@@ -260,13 +297,66 @@
 
 .fomodoro-icon-button {
     border-radius: 10px;
-    padding: 4px;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.fomodoro-icon-button:hover,
+.fomodoro-icon-button:focus {
+    background-color: rgba(255, 255, 255, 0.12);
 }
 
 .fomodoro-text-button {
     border-radius: 8px;
-    padding: 4px 10px;
+    min-height: 30px;
+    padding: 5px 11px;
     font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.fomodoro-text-button:hover,
+.fomodoro-text-button:focus {
+    background-color: rgba(255, 255, 255, 0.13);
+}
+
+.fomodoro-primary-button,
+.fomodoro-secondary-button {
+    border-radius: 8px;
+    min-height: 30px;
+    padding: 5px 12px;
+    font-weight: 700;
+}
+
+.fomodoro-primary-button {
+    color: rgba(255, 255, 255, 0.96);
+    background-color: rgba(227, 83, 83, 0.38);
+    border: 1px solid rgba(227, 83, 83, 0.48);
+}
+
+.fomodoro-primary-button:hover,
+.fomodoro-primary-button:focus {
+    background-color: rgba(227, 83, 83, 0.52);
+}
+
+.fomodoro-primary-button:insensitive,
+.fomodoro-secondary-button:insensitive {
+    color: rgba(255, 255, 255, 0.34);
+    background-color: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+.fomodoro-secondary-button {
+    color: rgba(255, 255, 255, 0.84);
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.fomodoro-secondary-button:hover,
+.fomodoro-secondary-button:focus {
+    background-color: rgba(255, 255, 255, 0.14);
 }
 
 .fomodoro-banner {
@@ -317,6 +407,13 @@
     border-radius: 8px;
     padding: 6px 10px;
     font-weight: 600;
+    color: rgba(255, 255, 255, 0.82);
+    background-color: rgba(227, 83, 83, 0.10);
+}
+
+.fomodoro-add-button:hover,
+.fomodoro-add-button:focus {
+    background-color: rgba(227, 83, 83, 0.18);
 }
 
 .fomodoro-add-form {
@@ -326,9 +423,30 @@
     background-color: rgba(255, 255, 255, 0.06);
 }
 
+.fomodoro-form-row {
+    spacing: 6px;
+}
+
+.fomodoro-settings-row {
+    spacing: 6px;
+    min-height: 32px;
+}
+
+.fomodoro-action-row {
+    spacing: 6px;
+}
+
 .fomodoro-entry {
-    padding: 5px 8px;
+    min-height: 30px;
+    padding: 5px 9px;
     border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fomodoro-entry:focus {
+    border-color: rgba(227, 83, 83, 0.60);
+    background-color: rgba(255, 255, 255, 0.09);
 }
 
 .fomodoro-task-list {
@@ -338,7 +456,7 @@
 .fomodoro-task-row {
     padding: 5px 6px;
     border-radius: 10px;
-    spacing: 8px;
+    spacing: 6px;
 }
 
 .fomodoro-task-row:hover {
@@ -354,10 +472,42 @@
     font-size: 11pt;
 }
 
+.fomodoro-task-title-done {
+    font-size: 11pt;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.fomodoro-task-main {
+    border-radius: 8px;
+    padding: 3px 5px;
+    background-color: transparent;
+}
+
+.fomodoro-task-main:hover,
+.fomodoro-task-main:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
 .fomodoro-focusing {
     font-size: 9pt;
     color: rgba(227, 83, 83, 0.95);
     font-weight: 600;
+}
+
+.fomodoro-task-stepper {
+    spacing: 2px;
+}
+
+.fomodoro-task-step-button {
+    border-radius: 7px;
+    padding: 2px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.fomodoro-task-step-button:hover,
+.fomodoro-task-step-button:focus {
+    background-color: rgba(255, 255, 255, 0.14);
 }
 
 .fomodoro-empty {
@@ -369,19 +519,144 @@
 }
 
 .fomodoro-note-editor {
-    font-size: 11pt;
-    padding: 10px;
+    padding: 12px;
+    min-height: 320px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.fomodoro-scroll {
-    width: 340px;
+.fomodoro-note-editor:focus {
+    border-color: rgba(227, 83, 83, 0.60);
+    background-color: rgba(255, 255, 255, 0.075);
+}
+
+.fomodoro-note-text {
+    font-size: 11pt;
+    color: rgba(255, 255, 255, 0.90);
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    caret-color: rgba(255, 255, 255, 0.95);
+    selection-background-color: rgba(227, 83, 83, 0.55);
+    selected-color: rgba(255, 255, 255, 1.0);
+}
+
+.fomodoro-sound-options {
+    spacing: 4px;
+}
+
+.fomodoro-sound-row {
+    spacing: 4px;
+}
+
+.fomodoro-preset-grid,
+.fomodoro-sound-options,
+.fomodoro-stat-grid {
+    spacing: 6px;
+}
+
+.fomodoro-preset-row,
+.fomodoro-stat-row {
+    spacing: 6px;
+}
+
+.fomodoro-step-button {
+    border-radius: 7px;
+    padding: 2px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.fomodoro-step-button:hover,
+.fomodoro-step-button:focus {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.fomodoro-stepper {
+    spacing: 4px;
+}
+
+.fomodoro-step-value {
+    font-size: 10pt;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.78);
+    text-align: center;
+    font-feature-settings: "tnum";
+}
+
+.fomodoro-option-button {
+    min-height: 32px;
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.72);
+    background-color: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.fomodoro-option-button:hover,
+.fomodoro-option-button:focus {
+    color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.11);
+}
+
+.fomodoro-sound-active {
+    font-weight: 700;
+    background-color: rgba(227, 83, 83, 0.34);
+    border-color: rgba(227, 83, 83, 0.42);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.fomodoro-option-button.fomodoro-sound-active:hover,
+.fomodoro-option-button.fomodoro-sound-active:focus {
+    background-color: rgba(227, 83, 83, 0.46);
+}
+
+.fomodoro-toggle {
+    min-width: 52px;
+    min-height: 30px;
+    border-radius: 15px;
+    padding: 3px 9px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.66);
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fomodoro-toggle:hover,
+.fomodoro-toggle:focus {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.fomodoro-toggle:checked {
+    color: rgba(255, 255, 255, 0.96);
+    background-color: rgba(227, 83, 83, 0.38);
+    border-color: rgba(227, 83, 83, 0.48);
 }
 
 .fomodoro-stats-body {
     spacing: 8px;
     padding: 4px;
+}
+
+.fomodoro-settings-body {
+    spacing: 10px;
+    padding: 2px 2px 6px 2px;
+}
+
+.fomodoro-settings-section {
+    spacing: 8px;
+    padding: 9px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fomodoro-settings-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.84);
 }
 
 .fomodoro-section-title {
@@ -421,22 +696,45 @@
     padding: 3px 2px;
 }
 
+.fomodoro-history-dot-focus {
+    color: rgb(240, 92, 92);
+    font-size: 10px;
+}
+
+.fomodoro-history-dot-break {
+    color: rgb(77, 199, 115);
+    font-size: 10px;
+}
+
 .fomodoro-preset {
     border-radius: 8px;
+    min-height: 32px;
     padding: 5px 8px;
     font-weight: 600;
     font-size: 9.5pt;
+    color: rgba(255, 255, 255, 0.72);
+    background-color: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.fomodoro-preset:hover,
+.fomodoro-preset:focus {
+    color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.11);
 }
 
 .fomodoro-preset-active {
-    border-radius: 8px;
-    padding: 5px 8px;
     font-weight: 700;
-    font-size: 9.5pt;
-    background-color: rgba(227, 83, 83, 0.25);
+    background-color: rgba(227, 83, 83, 0.34);
+    border-color: rgba(227, 83, 83, 0.42);
     color: rgba(255, 255, 255, 0.95);
 }
 
+.fomodoro-preset.fomodoro-preset-active:hover,
+.fomodoro-preset.fomodoro-preset-active:focus {
+    background-color: rgba(227, 83, 83, 0.46);
+}
+
 .fomodoro-ring {
-    border-radius: 55px;
+    border-radius: 60px;
 }

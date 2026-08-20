@@ -18,6 +18,7 @@ import {FomoDoroPopup} from './popup.js';
 
 const APP_VERSION = '1.0.2';
 const LATEST_RELEASE_URL = 'https://api.github.com/repos/anasubaid19/pomodorotimer-gnome/releases/latest';
+const LATEST_RELEASE_PAGE = 'https://github.com/anasubaid19/pomodorotimer-gnome/releases/latest';
 
 // 'v1.0.0' → 1000000, so tags can be compared numerically.
 const parseVersion = tag => tag.replace(/^v/, '').split('.').reduce((n, part) => n * 1000 + Number(part), 0);
@@ -41,12 +42,21 @@ export default class FomoDoroTimerExtension extends Extension {
         this._indicator.add_child(this._panelLabel);
         Main.panel.addToStatusArea(this.uuid, this._indicator);
 
-        this._popup = new FomoDoroPopup(this._engine, this._store, this._soundPlayer);
-        const menuItem = new PopupMenu.PopupBaseMenuItem({reactive: false});
+        this._popup = new FomoDoroPopup(
+            this._engine,
+            this._store,
+            this._soundPlayer,
+            () => this._checkUpdates(),
+            () => Gio.AppInfo.launch_default_for_uri(LATEST_RELEASE_PAGE, null));
+        const menuItem = new PopupMenu.PopupBaseMenuItem({
+            reactive: false,
+            can_focus: false,
+            style_class: 'fomodoro-menu-item',
+        });
         menuItem.add_child(this._popup);
         this._indicator.menu.addMenuItem(menuItem);
 
-        this._popup.setAbout(`${_('FomoDoro')} ${APP_VERSION}`, _('Checking for updates…'));
+        this._popup.setAbout(`${_('FomoDoro')} ${APP_VERSION}`, _('Checking for updates…'), false);
         this._onEngineChange();
         this._checkUpdates();
     }
@@ -88,16 +98,27 @@ export default class FomoDoroTimerExtension extends Extension {
 
         session.send_and_read_async(msg, GLib.PRIORITY_DEFAULT, null, (sess, result) => {
             let updateText = '';
+            let updateAvailable = false;
+            let releaseTag = '';
             try {
                 const bytes = sess.send_and_read_finish(result);
                 const release = JSON.parse(new TextDecoder().decode(bytes.get_data()));
-                updateText = parseVersion(release.tag_name) > parseVersion(APP_VERSION)
-                    ? _('Update available: %s').format(release.tag_name)
+                releaseTag = release.tag_name;
+                updateAvailable = parseVersion(releaseTag) > parseVersion(APP_VERSION);
+                updateText = updateAvailable
+                    ? _('Update available: %s').format(releaseTag)
                     : _('Up to date');
             } catch (e) {
+                updateText = _('Unable to check for updates');
                 console.error(`[FomoDoro] update check failed: ${e.message}`);
             }
-            this._popup.setAbout(`${_('FomoDoro')} ${APP_VERSION}`, updateText);
+            if (!this._popup)
+                return;
+            this._popup.setAbout(`${_('FomoDoro')} ${APP_VERSION}`, updateText, updateAvailable);
+            if (updateAvailable && this._settings.get_string('last-notified-update') !== releaseTag) {
+                this._settings.set_string('last-notified-update', releaseTag);
+                Main.notify(_('FomoDoro update available'), updateText);
+            }
         });
     }
 }
