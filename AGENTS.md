@@ -42,9 +42,11 @@ feature parity. Keep features aligned with the macOS app.
 - GJS + St/Clutter only. NO Swift.
 - Core logic is tested by `gjs -m test-logic.js` (mock GSettings; macOS brew gjs needs `DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib`). Keep it green.
 - After editing `schemas/`, run: `glib-compile-schemas schemas/`
-- Test on the GNOME machine: `gnome-extensions disable|enable pomodorotimer@anasubaid.dev`,
-  restart shell (Alt+F2 → `r`), watch `journalctl -f -o cat /usr/bin/gnome-shell`.
-- Install for dev: symlink repo → `~/.local/share/gnome-shell/extensions/pomodorotimer@anasubaid.dev`
+- Test on the GNOME machine after installing the ZIP with
+  `gnome-extensions install --force <zip>`; on Wayland, log out and back in before
+  enabling `pomodorotimer@anasubaid.dev`.
+- Use the ZIP flow for development installs too. Compile `schemas/gschemas.compiled`
+  before packaging; do not document symlink or manual-copy installation methods.
 - Git: small commits, tag `vX.Y.Z` per milestone, push. (macOS repo tags run v1.0.0–v1.6.0; this repo continues its own numbering from v1.0.0.)
 - When tagging a release, bump `APP_VERSION` in `extension.js` and `version` in `metadata.json` (EGO submission number).
 - Release zips: no `.po` files, no `test-logic.js`; `schemas/gschemas.compiled` IS included (CI compiles it before zipping — needed by `gnome-extensions install`).

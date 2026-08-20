@@ -17,39 +17,48 @@ Pomodoro timer with **tasks, notes, and analytics** — a port of the macOS app
 
 ## Requirements
 
-- GNOME Shell **46 or newer** (X11 or Wayland)
+- GNOME Shell **46–50** (X11 or Wayland)
 - `paplay` (PipeWire-Pulse / PulseAudio) or `canberra-gtk-play` for completion sounds
 
-## Install (zip)
+## Install
 
 1. Download the latest `pomodorotimer@anasubaid.dev.shell-extension.zip` from
    [Releases](../../releases).
-2. Install it:
+2. Install or replace the existing extension with the downloaded ZIP:
    ```sh
-   gnome-extensions install pomodorotimer@anasubaid.dev.shell-extension.zip
+   gnome-extensions install --force pomodorotimer@anasubaid.dev.shell-extension.zip
    ```
-3. Restart GNOME Shell (X11: `Alt+F2` → `r`; Wayland: log out and back in).
+3. Restart GNOME Shell. On Wayland, **log out completely and log back in**;
+   locking and unlocking the session is not sufficient.
 4. Enable the extension:
    ```sh
    gnome-extensions enable pomodorotimer@anasubaid.dev
    ```
-   Or use **Extension Manager** / **GNOME Extensions** app.
+5. Verify that GNOME Shell recognizes it:
+   ```sh
+   gnome-extensions info pomodorotimer@anasubaid.dev
+   ```
 
-The zip ships with compiled schemas — no extra steps needed.
+The release ZIP already contains `schemas/gschemas.compiled`; do not extract it or
+copy its files manually before installation.
 
-## Install from source
+## Build an installable ZIP from source
 
-For testing or development:
+Compile the schema before creating the ZIP, then install that ZIP through the same
+supported installation command:
 
 ```sh
 git clone https://github.com/anasubaid19/pomodorotimer-gnome.git
-ln -s "$(pwd)/pomodorotimer-gnome" ~/.local/share/gnome-shell/extensions/pomodorotimer@anasubaid.dev
-glib-compile-schemas pomodorotimer-gnome/schemas/
-gnome-extensions enable pomodorotimer@anasubaid.dev
+cd pomodorotimer-gnome
+glib-compile-schemas schemas/
+zip -r pomodorotimer@anasubaid.dev.shell-extension.zip . \
+  -x "./.git/*" "./.github/*" "./.gitignore" \
+  -x "./test-logic.js" "*.po" "*/.DS_Store"
+gnome-extensions install --force pomodorotimer@anasubaid.dev.shell-extension.zip
 ```
 
-Restart the shell as above. Re-run `glib-compile-schemas` after editing anything
-in `schemas/`.
+After installation, log out and back in on Wayland, then enable the extension as
+shown above. Re-run `glib-compile-schemas schemas/` whenever the schema changes.
 
 ## Update
 
@@ -60,7 +69,7 @@ To install a new version:
 gnome-extensions install --force pomodorotimer@anasubaid.dev.shell-extension.zip
 ```
 
-then restart the shell.
+On Wayland, log out completely and log back in after every update.
 
 ## Uninstall
 
